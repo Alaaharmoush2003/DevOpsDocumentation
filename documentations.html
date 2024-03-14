@@ -100,6 +100,18 @@
           <li><a href="#t82">Configuring Docker Images</a></li>
           <li><a href="#t83">Implementing Automation</a></li>
         </ul>
+        <li>
+          <a href="#t9"
+            >Start monitoring your Kubernetes cluster with Prometheus and
+            Grafana</a
+          >
+        </li>
+        <ul>
+          <li><a href="#t91">Install Prometheus</a></li>
+          <li><a href="#t10">Install Grafana</a></li>
+          <li><a href="t92">Configure Grafana with Prometheus</a></li>
+        </ul>
+        <li><a href="#t11">Project Management Setup</a></li>
       </ul>
     </dev>
     <hr />
@@ -232,12 +244,7 @@
             >(Documentation on How to Run Jenkins On Localhost)</a
           >
         </li>
-        <li>
-          Download and Install Code Editor ex Visual Studio Code
-          <a href="VScode.html"
-            >(Documentation on How to Download Visual Studio Code)</a
-          >
-        </li>
+
         <li>
           Download and Install Minikube
           <a href="MinikubeInstallation.html"
@@ -598,5 +605,231 @@
         <code>Git Push origen (branch you want to push to)</code>
       </p>
     </dev>
+    <dev class="page8">
+      <h2 id="t9">
+        Start monitoring your Kubernetes cluster with Prometheus and Grafana
+      </h2>
+      <h3 id="t91">Install Prometheus</h3>
+      <p>
+        Once the cluster is set up, start your installations. Install Prometheus
+        first by following the instructions below. First, add the repository in
+        Helm:
+      </p>
+      <img src="prom1.png" alt="" />
+      <p>Then install your Prometheus Helm chart. You should see:</p>
+      <img src="prom2.png" alt="" />
+      <p>
+        Get the Prometheus server URL by running these commands in the same
+        shell:
+      </p>
+      <img src="prom3.png" alt="" />
+      <p>
+        You can access the Prometheus Alertmanager via port 80 on this DNS name
+        from within your cluster:
+      </p>
+      <img src="prom4.png" alt="" />
+      <p>
+        Get the Alertmanager URL by running these commands in the same shell:
+      </p>
+      <img src="prom5.png" alt="" />
+      <p>
+        You can access the Prometheus PushGateway via port 9091 on this DNS name
+        from within your cluster:
+      </p>
+      <img src="prom6.png" alt="" />
+      <p>
+        Get the PushGateway URL by running these commands in the same shell:
+      </p>
+      <img src="prom7.png" alt="" />
+      <p>Check to confirm your pods are running:</p>
+      <img src="prom8.png" alt="" />
+      <p>
+        Next, expose your port on the Prometheus server pod so that you can see
+        the Prometheus web interface. To do this, you need the service name and
+        port. You also need to come up with a name to open the service using the
+        Minikube service command. Get the service name for
+        <b>prometheus-server:</b>
+      </p>
+      <img src="prom9.png" alt="" />
+      <p>
+        Expose the service as type Node-port. Provide a target port of 9090 and
+        a name you want to call the server. The node port is the server
+        listening port. This is an extract of the Helm chart:
+      </p>
+      <img src="prom10.png" alt="" />
+      <p>The command is:</p>
+      <img src="prom11.png" alt="" />
+      <p>Next, you need Minikube to open the service and browser:</p>
+      <img src="prom12" alt="" />
+      <p>Your browser should open and show you the Prometheus service.</p>
+      <img src="prom13" alt="" />
+      <p>Congratulations! You now have Prometheus installed on your cluster.</p>
+      <h2 id="t10">Install Grafana</h2>
+      <p>
+        Next, install Grafana and configure it to work with Prometheus. Follow
+        the steps below to expose a service to configure Grafana and collect
+        data from Prometheus to gather your steady state.
+        <br />
+        Start with getting your Helm chart:
+      </p>
+      <img src="prom14" alt="" />
+      <p>Search for your chart:</p>
+      <img src="prom15" alt="" />
+      <p>
+        Since stable/grafana is depreciated, install bitnami/grafana. Then
+        install your chart:
+      </p>
+      <img src="prom16" alt="" />
+      <ol>
+        <li>
+          Get the application URL by running:
+          <img src="prom17" alt="" />
+        </li>
+        <li>
+          Get the admin credentials:
+          <code
+            >echo "User: admin" echo "Password: $(kubectl get secret
+            grafana-admin --namespace default -o
+            jsonpath="{.data.GF_SECURITY_ADMIN_PASSWORD}" | base64 --decode)"
+          </code>
+        </li>
+      </ol>
+      <p>
+        As you can see in the Helm installation output, the target port for
+        Grafana is 3000, so you will use that port for exposing the service to
+        see Grafana's web frontend. Before exposing the service, confirm your
+        services are running:
+      </p>
+      <code
+        >$ kubectl get pods -A NAMESPACE NAME &nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        READY&nbsp;&nbsp; STATUS&nbsp;&nbsp; RESTARTS &nbsp;&nbsp;AGE <br />
+        default grafana-6b84bbcd8f-xt6vd
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        1/1 &nbsp;&nbsp; Running &nbsp;&nbsp;0
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4m21s</code
+      >
+      <p>Expose the service:</p>
+      <code
+        >$ kubectl expose service grafana --type=NodePort --target-port=3000
+        --name=grafana-server <br />
+        service/grafana-server exposed</code
+      >
+      <p>
+        $ kubectl expose service grafana --type=NodePort --target-port=3000
+        --name=grafana-server service/grafana-server exposed
+      </p>
+      <p>You will see the welcome screen where you can log in.</p>
+      <p>
+        Set up credentials to log into Grafana using kubectl. The commands
+        appeared in the installation's output; here are the commands in use:
+      </p>
+      <code
+        >$ echo "User: admin" <br />
+        User: admin <br />
+        $ echo "Password: $(kubectl get secret grafana-admin --namespace default
+        -o jsonpath="{.data.GF_SECURITY_ADMIN_PASSWORD}" | base64 --decode)"
+        <br />
+        Password: G6U5VeAejt</code
+      >
+      <p>
+        Log in with your new credentials, and you will see the Grafana
+        dashboard.
+      </p>
+      <h3 id="t92">Configure Grafana with Prometheus</h3>
+      <p>
+        Now that you can log in to your Grafana instance, you need to set up the
+        data collection and dashboard. Since this is an entirely web-based
+        configuration, I will go through the setup using screenshots. Start by
+        adding your Prometheus data collection. Click the gear icon on the
+        left-hand side of the display to open the Configuration settings, then
+        select Data Source.
+      </p>
+      <img src="a.png" alt="" />
+      <p>On the next screen, click Add data source.</p>
+      <img src="b.png" alt="" />
+      <p>Select Prometheus.</p>
+      <img src="c.png" alt="" />
+      <p>
+        Because you configured your Prometheus instance to be exposed on port
+        80, use the service name prometheus-server and the server port 80.
+      </p>
+      <img src="d.png" alt="" />
+      <p>
+        Save and test your new data source by scrolling to the bottom of the
+        screen and clicking Save and Test. You should see a green banner that
+        says Data source is working.
+      </p>
+      <img src="e.png" alt="" />
+      <p>Return to the top of the page and click Dashboards.</p>
+      <img src="f.png" alt="" />
+      <p>Import all three dashboard options.</p>
+      <img src="g.png" alt="" />
+      <p>
+        Click the magnifying glass icon on the left-hand side to confirm all
+        three dashboards have been imported.
+      </p>
+      <img src="h.png" alt="" />
+      <p>
+        Now that everything is configured, click Prometheus 2.0 Stats, and you
+        should see something similar to this.
+      </p>
+      <img src="i.png" alt="" />
+      <p>
+        Congratulations! You have a set up basic data collection from Prometheus
+        about your cluster.
+      </p>
+    </dev>
+    <div class="page9">
+      <h2 id="t11">Project Management Setup</h2>
+      <ul>
+        <li>
+          <strong>Centralized Project Management:</strong> Jira provides a
+          centralized platform for managing tasks, issues, requirements, and
+          resources, facilitating collaboration and communication among team
+          members.
+        </li>
+
+        <li>
+          <strong>Agile Methodology Support:</strong> Jira supports agile
+          methodologies such as Scrum and Kanban, enabling teams to plan, track,
+          and deliver iterative releases efficiently.
+        </li>
+
+        <li>
+          <strong>Issue Tracking and Workflow Management:</strong> Jira's robust
+          issue tracking and workflow management capabilities allow teams to
+          create, prioritize, assign, and track issues throughout the software
+          development lifecycle.
+        </li>
+
+        <li>
+          <strong>Customization and Flexibility:</strong> Teams can customize
+          workflows, issue types, fields, and boards in Jira to align with their
+          unique project requirements and workflows.
+        </li>
+
+        <li>
+          <strong>Collaboration and Communication:</strong> Jira facilitates
+          collaboration and communication among team members, stakeholders, and
+          other project stakeholders with features such as comments, mentions,
+          and notifications.
+        </li>
+
+        <li>
+          <strong>Traceability and Transparency:</strong> Jira provides
+          traceability and transparency throughout the project lifecycle by
+          capturing detailed information about tasks, issues, changes, and
+          dependencies.
+        </li>
+
+        <li>
+          <strong>Integration Ecosystem:</strong> Jira offers integrations with
+          other tools and systems commonly used in software development,
+          enabling teams to automate workflows, streamline processes, and
+          improve overall project efficiency.
+        </li>
+      </ul>
+    </div>
   </body>
 </html>
