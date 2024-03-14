@@ -72,6 +72,7 @@
           <li><a href="#t43">Repository Creation</a></li>
           <li><a href="#t44">Cloning the Repository</a></li>
         </ul>
+        <li><a href="#t7">Containerization Setup</a></li>
         <li>
           <a href="#t5"
             >Continuous Integration/Continuous Deployment (CI/CD) Setup</a
@@ -92,12 +93,7 @@
           <li><a href="#t63">Installation</a></li>
           <li><a href="#t64">Installation</a></li>
         </ul>
-        <li><a href="#t7">Containerization Setup</a></li>
-        <ul>
-          <li><a href="#t71">Docker Desktop Installation</a></li>
-          <li><a href="#t72">Verify Installation</a></li>
-          <li><a href="#t73">Getting Started with Docker</a></li>
-        </ul>
+
         <li><a href="#t8">Back To GitHub</a></li>
         <ul>
           <li><a href="#t81">Setting Up GitHub Workflows</a></li>
@@ -209,7 +205,7 @@
       </ul>
     </dev>
     <hr />
-    <dev class="page4">
+    <div class="page31">
       <h1 id="t3">1. Project Setup</h1>
       <ul>
         <li>
@@ -296,8 +292,69 @@
       <img src="bash1.png" alt="" />
       <p>Replace repository_url with the URL of your GitHub repository.</p>
       <img src="main2.png" alt="" />
+    </div>
+    <hr />
+    <div class="page6">
+      <h2 id="t7">2. Containerization Setup</h2>
+      <h3 id="t71">Docker Desktop Installation</h3>
+      <ol>
+        <li>
+          <strong>Download Docker Desktop:</strong> Visit the official Docker
+          website at
+          <a href="https://www.docker.com/products/docker-desktop"
+            >docker.com</a
+          >
+          and download Docker Desktop for your operating system (Windows/macOS).
+          <img src="docker1.png" alt="" />
+        </li>
+        <li>
+          <strong>Install Docker Desktop:</strong> Follow the installation
+          instructions provided by Docker to install Docker Desktop on your
+          system. The installation process typically involves running the
+          downloaded installer and following the on-screen prompts.
+        </li>
+        <li>
+          <strong>Launch Docker Desktop:</strong> Once installed, Docker Desktop
+          should be available in your system's applications or programs. Launch
+          Docker Desktop to start the Docker daemon.
+        </li>
+      </ol>
+      <h3 id="t72">Verify Installation</h3>
+      <ol>
+        <li>
+          <strong>Verify Docker Installation:</strong> Open a terminal/command
+          prompt and run the following command to verify that Docker is
+          installed and running correctly:
+          <pre>docker --version<br>docker info</pre>
+        </li>
+        <li>
+          <strong>Verify Kubernetes Installation (Optional):</strong> If you
+          enabled Kubernetes in Docker Desktop, run the following command to
+          verify the Kubernetes cluster:
+          <pre>kubectl version<br>kubectl cluster-info</pre>
+        </li>
+      </ol>
+      <h3 id="t73">Getting Started with Docker</h3>
+      <ol>
+        <li>
+          <strong>Run Docker Containers:</strong> Use the
+          <code>docker run</code> command to run Docker containers based on
+          pulled images. For example:
+          <pre>docker run -d --name my_container &lt;image_name&gt;</pre>
+        </li>
+        <li>
+          <strong>Explore Docker Commands:</strong> Familiarize yourself with
+          other Docker commands for managing containers, images, volumes,
+          networks, and more. Use <code>docker --help</code> or refer to the
+          Docker documentation for detailed information on available commands
+          and options.
+        </li>
+      </ol>
+    </div>
+    <hr />
+    <dev class="page4">
       <h1 id="t5">
-        2. Continuous Integration/Continuous Deployment (CI/CD) Setup
+        3. Continuous Integration/Continuous Deployment (CI/CD) Setup
       </h1>
       <p>
         if you have not installed and Configure Jenkins and started it
@@ -342,8 +399,12 @@
         </li>
       </ol>
     </dev>
+    <hr />
+
     <div class="page5">
-      <h2 id="t6">Setting Up a Local Kubernetes Environment with Minikube</h2>
+      <h2 id="t6">
+        4. Setting Up a Local Kubernetes Environment with Minikube
+      </h2>
 
       <h3 id="t61">Introduction</h3>
       <p>
@@ -427,65 +488,9 @@
         in your Minikube cluster.
       </p>
     </div>
-    <div class="page6">
-      <h2 id="t7">Containerization Setup</h2>
-      <h3 id="t71">Docker Desktop Installation</h3>
-      <ol>
-        <li>
-          <strong>Download Docker Desktop:</strong> Visit the official Docker
-          website at
-          <a href="https://www.docker.com/products/docker-desktop"
-            >docker.com</a
-          >
-          and download Docker Desktop for your operating system (Windows/macOS).
-          <img src="docker1.png" alt="" />
-        </li>
-        <li>
-          <strong>Install Docker Desktop:</strong> Follow the installation
-          instructions provided by Docker to install Docker Desktop on your
-          system. The installation process typically involves running the
-          downloaded installer and following the on-screen prompts.
-        </li>
-        <li>
-          <strong>Launch Docker Desktop:</strong> Once installed, Docker Desktop
-          should be available in your system's applications or programs. Launch
-          Docker Desktop to start the Docker daemon.
-        </li>
-      </ol>
-      <h3 id="t72">Verify Installation</h3>
-      <ol>
-        <li>
-          <strong>Verify Docker Installation:</strong> Open a terminal/command
-          prompt and run the following command to verify that Docker is
-          installed and running correctly:
-          <pre>docker --version<br>docker info</pre>
-        </li>
-        <li>
-          <strong>Verify Kubernetes Installation (Optional):</strong> If you
-          enabled Kubernetes in Docker Desktop, run the following command to
-          verify the Kubernetes cluster:
-          <pre>kubectl version<br>kubectl cluster-info</pre>
-        </li>
-      </ol>
-      <h3 id="t73">Getting Started with Docker</h3>
-      <ol>
-        <li>
-          <strong>Run Docker Containers:</strong> Use the
-          <code>docker run</code> command to run Docker containers based on
-          pulled images. For example:
-          <pre>docker run -d --name my_container &lt;image_name&gt;</pre>
-        </li>
-        <li>
-          <strong>Explore Docker Commands:</strong> Familiarize yourself with
-          other Docker commands for managing containers, images, volumes,
-          networks, and more. Use <code>docker --help</code> or refer to the
-          Docker documentation for detailed information on available commands
-          and options.
-        </li>
-      </ol>
-    </div>
+    <hr />
     <dev class="page7">
-      <h2 id="t8">Back To GitHub</h2>
+      <h2 id="t8">5. Back To GitHub</h2>
       <h3 id="t81">1- Setting Up GitHub Workflows</h3>
       <p>Navigating to GitHub</p>
       <h3 id="t82">2- Configuring Docker Images</h3>
