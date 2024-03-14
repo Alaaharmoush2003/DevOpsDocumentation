@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation</title>
+    <style>
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        background-color: rgb(196, 196, 196);
+      }
+      #col1,
+      #col2,
+      #col3 {
+        flex: 1;
+      }
+      #col1 {
+        align-self: flex-start;
+      }
+      #col3 {
+        text-align: right;
+      }
+
+      #col2 {
+        text-align: center;
+      }
+
+      a {
+        text-transform: none;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div id="col1">
+        <p><b>Prepared By:</b>Alaa Harmoush, Dani Kais</p>
+        <p><b>Audience:</b> client and technical department</p>
+      </div>
+      <div id="col2">
+        <h4>DevOps Cycle - Ci/Cd - Liability Manager</h4>
+      </div>
+      <div id="col3">
+        <p><b>Date:</b>6/3/2024</p>
+        <p><b>version:</b>1.0</p>
+      </div>
+    </header>
+    <dev class="page1">
+      <center><h1>DevOps Cycle - Ci/Cd - Liability Manager</h1></center>
+      <center><img src="DevOps.png" alt="" /></center>
+    </dev>
+    <hr />
+    <dev class="page2" id="TableOfContent">
+      <b>Table Of Contents :</b> <br />
+      <ul>
+        <li>
+          <a href="#t1">introduction</a>
+        </li>
+        <li><a href="#t2">Requirements</a></li>
+        <ul>
+          <li><a href="#t21">Hardware</a></li>
+          <li><a href="#t22">Software Requirements</a></li>
+          <li><a href="#t23">Additional Requirements</a></li>
+        </ul>
+        <li><a href="#t3">Project Setup</a></li>
+        <li><a href="#t4">Version Control Setup</a></li>
+        <ul>
+          <li><a href="#t41">Installation of Git</a></li>
+          <li><a href="#t42">GitHub Account Setup</a></li>
+          <li><a href="#t43">Repository Creation</a></li>
+          <li><a href="#t44">Cloning the Repository</a></li>
+        </ul>
+        <li>
+          <a href="#t5"
+            >Continuous Integration/Continuous Deployment (CI/CD) Setup</a
+          >
+        </li>
+        <ul>
+          <li><a href="#t51">Configure CI/CD Pipeline</a></li>
+          <li><a href="#t52">Test and Run Pipeline</a></li>
+        </ul>
+        <li>
+          <a href="#t6"
+            >Setting Up a Local Kubernetes Environment with Minikube</a
+          >
+        </li>
+        <ul>
+          <li><a href="#t61">Introduction</a></li>
+          <li><a href="#t62">Prerequisites</a></li>
+          <li><a href="#t63">Installation</a></li>
+          <li><a href="#t64">Installation</a></li>
+        </ul>
+        <li><a href="#t7">Containerization Setup</a></li>
+        <ul>
+          <li><a href="#t71">Docker Desktop Installation</a></li>
+          <li><a href="#t72">Verify Installation</a></li>
+          <li><a href="#t73">Getting Started with Docker</a></li>
+        </ul>
+        <li><a href="#t8">Back To GitHub</a></li>
+        <ul>
+          <li><a href="#t81">Setting Up GitHub Workflows</a></li>
+          <li><a href="#t82">Configuring Docker Images</a></li>
+          <li><a href="#t83">Implementing Automation</a></li>
+        </ul>
+      </ul>
+    </dev>
+    <hr />
+    <br />
+    <dev class="page3">
+      <h2 id="t1">introduction</h2>
+      <p>
+        Welcome to the documentation for our liability manager website! This
+        document serves as a comprehensive guide to understanding the
+        development process, tools used, and overall architecture of our
+        project. As part of our commitment to transparency and collaboration,
+        we've compiled this documentation to provide insight into the creation
+        of our website.
+      </p>
+
+      <h2 id="t2">Requirements :</h2>
+      <p>
+        To effectively develop, deploy, and maintain the website you are
+        building, the following hardware, software, and resources are required
+      </p>
+      <h3 id="t21">Hardware</h3>
+      <ul>
+        <li>
+          <b>Processor:</b> Dual-core processor (Intel Core i3 or AMD
+          equivalent) or higher.
+        </li>
+        <li><b>RAM:</b> 8 GB of RAM or higher.</li>
+        <li>
+          <b>Storage:</b> Solid State Drive (SSD) with a minimum of 256 GB of
+          storage space.
+        </li>
+        <li>
+          <b>Graphics:</b> Integrated graphics card or dedicated GPU with at
+          least 1 GB of video memory.
+        </li>
+        <li><b>Display:</b> Minimum resolution of 1366 x 768 pixels.</li>
+        <li>
+          <b>Network:</b>Ethernet port or Wi-Fi capability for internet
+          connectivity.
+        </li>
+      </ul>
+      <h3 id="t22">Software Requirements</h3>
+      <ul>
+        <li>
+          <strong>Operating System:</strong> Compatible with Windows, macOS, or
+          Linux operating systems.
+        </li>
+        <li>
+          <strong>Development Tools:</strong>
+          <ul>
+            <li>
+              <strong>GitBash:</strong> Command-line interface for interacting
+              with Git repositories.
+            </li>
+            <li>
+              <strong>GitHub:</strong> Web-based Git repository hosting service
+              for version control and collaboration.
+            </li>
+            <li>
+              <strong>Jenkins:</strong> Open-source automation server for
+              continuous integration and continuous deployment (CI/CD).
+            </li>
+            <li>
+              <strong>Minikube:</strong> Tool for running Kubernetes clusters
+              locally for development and testing purposes.
+            </li>
+            <li>
+              <strong>Docker Desktop:</strong> Desktop application for building,
+              managing, and deploying containerized applications using Docker.
+            </li>
+            <li>
+              <strong>Docker Hub:</strong> Cloud-based registry service for
+              storing and sharing Docker container images.
+            </li>
+            <li>
+              <strong>Jira:</strong> Project management and issue tracking tool
+              for agile teams, used for ticketing and task management.
+            </li>
+            <li>
+              <strong>Prometheus:</strong> Open-source monitoring and alerting
+              toolkit for containerized environments, used for metrics
+              collection.
+            </li>
+            <li>
+              <strong>Grafana:</strong> Open-source analytics and monitoring
+              platform, used for visualizing metrics and monitoring data from
+              Prometheus.
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <h3 id="t23">Additional Requirements</h3>
+      <ul>
+        <li>
+          <strong>Internet Connection:</strong> Stable internet connection for
+          accessing cloud services, repositories, and resources.
+        </li>
+        <li>
+          <strong>Permissions and Credentials:</strong> Access permissions and
+          credentials for utilizing various tools and services, such as GitHub
+          repositories, Docker Hub, and Jira.
+        </li>
+      </ul>
+    </dev>
+    <hr />
+    <dev class="page4">
+      <h1 id="t3">1. Project Setup</h1>
+      <ul>
+        <li>
+          Set Up Acount On GitHub
+          <a href="GitHubSetUp.html"
+            >(Documentation on How to Set up an Acount on GitHub)</a
+          >
+        </li>
+        <li>
+          Download GitBash
+          <a href="GitBashDownload.html"
+            >(Documentation on How to Download GitBash)</a
+          >
+        </li>
+        <li>
+          Download Docker Desktop
+          <a href="DockerDesktopDownload.html"
+            >(Documentation on How to Download Docker Desktop)</a
+          >
+        </li>
+        <li>
+          Run Jenkins
+          <a href="RunJenkins.html"
+            >(Documentation on How to Run Jenkins On Localhost)</a
+          >
+        </li>
+        <li>
+          Download and Install Code Editor ex Visual Studio Code
+          <a href="VScode.html"
+            >(Documentation on How to Download Visual Studio Code)</a
+          >
+        </li>
+        <li>
+          Download and Install Minikube
+          <a href="MinikubeInstallation.html"
+            >(Documentation on How to install Minikube)</a
+          >
+        </li>
+      </ul>
+      <h1 id="t4">2. Version Control Setup</h1>
+      <h2 id="t41">2.1 Installation of Git</h2>
+      <p>
+        First, you need to install Git on your local machine if you haven't
+        already done so.
+      </p>
+      <h2 id="t42">2.2 GitHub Account Setup</h2>
+      <p>
+        If you don't have a GitHub account, go to
+        <a href="https://github.com/">GitHub</a> and sign up for a new account.
+      </p>
+      <h2 id="t43">2.3 Repository Creation</h2>
+      <p>
+        Once you have set up your GitHub account, you can create a new
+        repository to host your project's code.
+      </p>
+      <ol>
+        <li>Log in to your GitHub account.</li>
+        <li>
+          Click on the "+" icon in the top right corner and select "New
+          repository."
+        </li>
+        <li>
+          Enter a name for your repository, a brief description (optional), and
+          choose whether it should be public or private.
+        </li>
+        <li>
+          Optionally, add a README file, a .gitignore file, and choose a
+          license.
+        </li>
+        <li>Click on the "Create repository" button.</li>
+      </ol>
+      <h2 id="t44">2.4 Cloning the Repository</h2>
+      <p>
+        Now that you have created a repository on GitHub, you need to clone it
+        to your local machine to start working on your project.
+      </p>
+      <ol>
+        <li>Open GitBash or your preferred terminal.</li>
+        <li>
+          Navigate to the directory where you want to clone the repository.
+        </li>
+        <li>Use the following command to clone the repository:</li>
+      </ol>
+      <img src="bash1.png" alt="" />
+      <p>Replace repository_url with the URL of your GitHub repository.</p>
+      <img src="main2.png" alt="" />
+      <h1 id="t5">
+        2. Continuous Integration/Continuous Deployment (CI/CD) Setup
+      </h1>
+      <p>
+        if you have not installed and Configure Jenkins and started it
+        <a href="RunJenkins.html">follow this documentation</a>
+      </p>
+      <h2 id="t51">Configure CI/CD Pipeline</h2>
+      <ol>
+        <li>
+          <h3>Create a New Item:</h3>
+          <br />
+          <p>
+            From the Jenkins dashboard, click on "New Item" to create a new
+            Jenkins job.
+          </p>
+          <img src="jinkinsafter1.png" alt="" />
+        </li>
+        <li>
+          <h3>Enter Job Details:</h3>
+          <p>
+            Provide a name for your job and select the type of job (e.g.,
+            Freestyle project, Pipeline) We need to Use Pipeline.
+          </p>
+          <img src="jinkinsafter2.png" alt="" />
+        </li>
+        <li>
+          <h3>Configure Pipeline</h3>
+          <img src="jinkinsafter3.png" alt="" />
+          <p>
+            choose github Project and add the link from your browser when you
+            are on GitHub
+          </p>
+          <img src="jinkinsafter4.png" alt="" />
+          <p>
+            choose Pull SCM and * * * * * to scan every 1 minute on Docker Hub
+            if you have pushed and pull the images
+          </p>
+          <img src="jinkinsafter5.png" alt="" />
+          <p>
+            add a Pipeline Script that will login to Docker Hub Pull the images
+            and Run them on Minikube
+          </p>
+        </li>
+      </ol>
+    </dev>
+    <div class="page5">
+      <h2 id="t6">Setting Up a Local Kubernetes Environment with Minikube</h2>
+
+      <h3 id="t61">Introduction</h3>
+      <p>
+        Minikube is a tool that enables you to run a single-node Kubernetes
+        cluster locally. It's an ideal solution for development, testing, and
+        learning Kubernetes concepts without the need for a full-scale cluster.
+        This guide will walk you through the process of installing and
+        configuring Minikube to create a local Kubernetes environment.
+      </p>
+
+      <h3 id="t62">Prerequisites</h3>
+      <p>
+        Before you begin, ensure that you have the following prerequisites
+        installed:
+      </p>
+      <ul>
+        <li>
+          Hypervisor: Minikube supports several hypervisors, including
+          VirtualBox, Hyper-V, and KVM. Make sure to install the appropriate
+          hypervisor for your operating system.
+        </li>
+        <li>
+          kubectl: The Kubernetes command-line tool, kubectl, is used to
+          interact with your Kubernetes clusters. Install kubectl by following
+          the official Kubernetes documentation:
+          <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/"
+            >Installing kubectl</a
+          >.
+        </li>
+      </ul>
+      <h3 id="t63">Installation</h3>
+      <h4>Step 1: Install Minikube</h4>
+      <ol>
+        <li>
+          Download the Minikube binary for your operating system from the
+          official Minikube releases page:
+          <a href="https://github.com/kubernetes/minikube/releases"
+            >Minikube Releases</a
+          >.
+        </li>
+        <li>
+          Place the downloaded binary in your system's PATH. You may need to
+          make it executable by running <code>chmod +x minikube</code>.
+        </li>
+        <li>
+          Verify the installation by running <code>minikube version</code>.
+        </li>
+      </ol>
+
+      <h4>Step 2: Start Minikube Cluster</h4>
+      <ol>
+        <li>
+          Open a terminal window and run the following command to start the
+          Minikube cluster:<br /><img src="kubeafter1.png" alt="" />
+        </li>
+        <li>
+          Minikube will download the necessary Kubernetes ISO and create a
+          virtual machine (VM) to host the cluster. This process may take a few
+          minutes.
+        </li>
+        <li>
+          Once the cluster is up and running, verify its status by running:<br />
+          <img src="kubeafter2.png" alt="" />
+        </li>
+      </ol>
+      <h3 id="t64">Configuration</h3>
+      <h4>Step 1: Configure kubectl</h4>
+      <p>
+        Minikube automatically configures kubectl to use the Minikube cluster
+        context. To verify the configuration, run:<br />
+        <img src="kubeafter3.png" alt="" />
+      </p>
+
+      <h4>Step 2: Access Minikube Dashboard (Optional)</h4>
+      <p>
+        s To access the Kubernetes dashboard, run the following command:<br />
+        <img src="kubeafter4.png" alt="" />
+      </p>
+      <p>
+        This command opens a web browser with the Kubernetes dashboard running
+        in your Minikube cluster.
+      </p>
+    </div>
+    <div class="page6">
+      <h2 id="t7">Containerization Setup</h2>
+      <h3 id="t71">Docker Desktop Installation</h3>
+      <ol>
+        <li>
+          <strong>Download Docker Desktop:</strong> Visit the official Docker
+          website at
+          <a href="https://www.docker.com/products/docker-desktop"
+            >docker.com</a
+          >
+          and download Docker Desktop for your operating system (Windows/macOS).
+          <img src="docker1.png" alt="" />
+        </li>
+        <li>
+          <strong>Install Docker Desktop:</strong> Follow the installation
+          instructions provided by Docker to install Docker Desktop on your
+          system. The installation process typically involves running the
+          downloaded installer and following the on-screen prompts.
+        </li>
+        <li>
+          <strong>Launch Docker Desktop:</strong> Once installed, Docker Desktop
+          should be available in your system's applications or programs. Launch
+          Docker Desktop to start the Docker daemon.
+        </li>
+      </ol>
+      <h3 id="t72">Verify Installation</h3>
+      <ol>
+        <li>
+          <strong>Verify Docker Installation:</strong> Open a terminal/command
+          prompt and run the following command to verify that Docker is
+          installed and running correctly:
+          <pre>docker --version<br>docker info</pre>
+        </li>
+        <li>
+          <strong>Verify Kubernetes Installation (Optional):</strong> If you
+          enabled Kubernetes in Docker Desktop, run the following command to
+          verify the Kubernetes cluster:
+          <pre>kubectl version<br>kubectl cluster-info</pre>
+        </li>
+      </ol>
+      <h3 id="t73">Getting Started with Docker</h3>
+      <ol>
+        <li>
+          <strong>Run Docker Containers:</strong> Use the
+          <code>docker run</code> command to run Docker containers based on
+          pulled images. For example:
+          <pre>docker run -d --name my_container &lt;image_name&gt;</pre>
+        </li>
+        <li>
+          <strong>Explore Docker Commands:</strong> Familiarize yourself with
+          other Docker commands for managing containers, images, volumes,
+          networks, and more. Use <code>docker --help</code> or refer to the
+          Docker documentation for detailed information on available commands
+          and options.
+        </li>
+      </ol>
+    </div>
+    <dev class="page7">
+      <h2 id="t8">Back To GitHub</h2>
+      <h3 id="t81">1- Setting Up GitHub Workflows</h3>
+      <p>Navigating to GitHub</p>
+      <h3 id="t82">2- Configuring Docker Images</h3>
+      <ol>
+        <li>
+          <h2>Navigate to Your Repository</h2>
+          <p>
+            Log in to GitHub and navigate to the repository where you want to
+            create the workflow.
+          </p>
+          <img src="github1.png" alt="" />
+        </li>
+
+        <li>
+          <h2>Access the Actions Tab</h2>
+          <p>
+            In the repository, click on the "Actions" tab. This tab is where you
+            can manage workflows for your repository.
+          </p>
+          <img src="github2.png" alt="" />
+        </li>
+
+        <li>
+          <h2>Set Up a New Workflow</h2>
+          <p>
+            Click on the "Set up a workflow yourself" button. This will allow
+            you to create a custom workflow file.
+          </p>
+        </li>
+
+        <li>
+          <h2>Choose a Workflow Template</h2>
+          <p>
+            You can either start from scratch by selecting the "Starter
+            workflow" template or choose from pre-defined templates based on the
+            programming language or framework you are using. Alternatively, you
+            can create a new YAML file manually Or Can Use ChatGBT to help you
+            write your own Yaml file.
+          </p>
+        </li>
+
+        <li>
+          <h2>Edit the Workflow File</h2>
+          <p>
+            GitHub will open a new file with the .yml extension in the
+            .github/workflows directory of your repository. This file contains
+            the workflow configuration written in YAML syntax.
+          </p>
+        </li>
+
+        <li>
+          <h2>Define Workflow Events</h2>
+          <p>
+            You'll start by defining the events that trigger the workflow. For
+            example, you can specify that the workflow should run whenever code
+            is pushed to a specific branch or when a pull request is opened.
+          </p>
+        </li>
+
+        <li>
+          <h2>Specify Jobs and Steps</h2>
+          <p>
+            Within the workflow file, you'll define one or more jobs that need
+            to be executed. Each job consists of one or more steps. Steps are
+            individual tasks that are executed sequentially within a job.
+          </p>
+        </li>
+
+        <li>
+          <h2>Configure Actions</h2>
+          <p>
+            You can use pre-built actions provided by GitHub or third-party
+            actions from the GitHub Marketplace within your workflow. Actions
+            are reusable units of code that perform specific tasks, such as
+            checking out code from the repository, running tests, or deploying
+            applications.
+          </p>
+        </li>
+
+        <li>
+          <h2>Commit the Workflow File</h2>
+          <p>
+            Once you have configured the workflow to your liking, commit the
+            changes to the repository. You can provide a commit message
+            describing the changes you made to the workflow file.
+          </p>
+        </li>
+
+        <li>
+          <h2>Monitor Workflow Runs</h2>
+          <p>
+            After committing the workflow file, GitHub will automatically start
+            running the workflow based on the events you specified. You can
+            monitor the progress of workflow runs and view detailed logs for
+            each run in the "Actions" tab of your repository.
+          </p>
+        </li>
+      </ol>
+      <h3 id="t83">3- Implementing Automation</h3>
+      <p>
+        After Setting Up everythig now you can go back to Vs Code and Edit your
+        code And then Push to Github by using the three commands <br />
+        <code>git add . </code><br />
+        <code>git commit -m "your message"</code><br />
+        <code>Git Push origen (branch you want to push to)</code>
+      </p>
+    </dev>
+  </body>
+</html>
